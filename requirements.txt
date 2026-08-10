@@ -1,0 +1,7 @@
+pymupdf4llm
+watchdog
+chromadb
+openai
+langchain-text-splitters
+python-dotenv
+fastapi
