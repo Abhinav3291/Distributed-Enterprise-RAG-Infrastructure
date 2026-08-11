@@ -2,7 +2,7 @@
 
 A cost-aware, defense-in-depth Retrieval-Augmented Generation (RAG) backend engineered for low-latency responses, high-concurrency throughput, and minimal hallucination risk.
 
-Built as a student project to go deep on production-style RAG patterns — rate limiting, caching, retrieval, and output safety — under a real constraint (a small OpenAI API budget), not unlimited cloud spend. Shared here for other students to learn from and for engineers to critique.
+Built as a project to go deep on production-style RAG patterns — rate limiting, caching, retrieval, and output safety — under a real constraint (a small OpenAI API budget), not unlimited cloud spend. Shared here for other students to learn from and for engineers to critique.
 
 ---
 
@@ -150,8 +150,7 @@ The API will be available at `http://localhost:8000`.
 ---
 
 ## 🛠️ Tech Stack
-Python · FastAPI · AsyncOpenAI · ChromaDB · Redis · HuggingFace Transformers · Docker
-
+Python · FastAPI · AsyncOpenAI · ChromaDB · Redis · HuggingFace Transformers · Docker · Redis Token Bucket
 ---
 
 ## 🗺️ Roadmap
