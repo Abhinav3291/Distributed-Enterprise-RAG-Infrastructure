@@ -3,7 +3,7 @@ An enterprise-grade, low-latency Retrieval-Augmented Generation backend engineer
 
 🏗️ System Architecture & Data Flow
 Plaintext
-[HTTP Request] 
+[HTTP Request]    
       │
       ▼
 [Redis Token Bucket (Lua Script)] ──(Exceeded)──► [HTTP 429 Too Many Requests]
