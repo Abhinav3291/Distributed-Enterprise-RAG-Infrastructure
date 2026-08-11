@@ -50,6 +50,7 @@ Distributed Enterprise RAG Infrastructure/
 ├── docker-compose.yml             # Local Redis container deployment configuration
 ├── requirements.txt               # Pinned project dependencies
 └── .gitignore                     # Excludes virtual environments, DB artifacts, and secrets
+```
 ⚖️ Architectural Trade-Offs
 Every engineering decision involves trade-offs. Here is a breakdown of why specific architectural patterns were chosen for Bastion RAG Engine, along with what was intentionally compromised:
 
