@@ -1,8 +1,8 @@
-# Distributed Enterprise RAG Infrastructure
+#Enterprise RAG Infrastructure
 
 A cost-aware, defense-in-depth Retrieval-Augmented Generation (RAG) backend engineered for low-latency responses, high-concurrency throughput, and minimal hallucination risk.
 
-Built as a student project to go deep on production-style RAG patterns — rate limiting, caching, retrieval, and output safety — under a real constraint (a small OpenAI API budget), not unlimited cloud spend. Shared here for other students to learn from and for engineers to critique.
+Built as a project to go deep on production-style RAG patterns — rate limiting, caching, retrieval, and output safety — under a real constraint (a small OpenAI API budget), not unlimited cloud spend. Shared here for other students to learn from and for engineers to critique.
 
 ---
 
@@ -40,7 +40,7 @@ Rate limiting runs *first*, before the cache lookup — so throttled or abusive 
 ## 📂 Project Directory Structure
 
 ```
-Distributed-Enterprise-RAG-Infrastructure/
+Enterprise-RAG-Infrastructure/
 │
 ├── Rag_Ingiestion_pipeline/
 │   ├── cache/
@@ -107,8 +107,8 @@ Every engineering decision here involves a trade-off. Here's why specific patter
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/Abhinav3291/Distributed-Enterprise-RAG-Infrastructure.git
-cd Distributed-Enterprise-RAG-Infrastructure
+git clone https://github.com/Abhinav3291/RAG-Infrastructure.git
+cd RAG-Infrastructure
 ```
 
 ### Step 2: Set up environment variables
@@ -163,5 +163,5 @@ Python · FastAPI · AsyncOpenAI · ChromaDB · Redis · HuggingFace Transformer
 ---
 
 ## 📄 License
-MIT — see [LICENSE](./LICENSE) for details.# Distributed Enterprise RAG Infrastructure
+MIT — see [LICENSE](./LICENSE) for details.#RAG Infrastructure
 
