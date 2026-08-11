@@ -6,11 +6,13 @@ When accepting heavy PDF uploads from 100+ simultaneous users in a naive or sync
 3.	Thread Blocking & Gateway Timeouts: Synchronous PDF parsing blocks HTTP request threads, causing high user latency and 504 Gateway Timeouts.
 
  <img width="843" height="460" alt="image" src="https://github.com/user-attachments/assets/e64451ae-d803-4e10-8f61-340e92ecea69" />
-Fig 1: Synchronous Watchdog File-System Ingestion Architecture 
+ 
+							Fig 1: Synchronous Watchdog File-System Ingestion Architecture 
 
 
 
-	Key Architectural Mitigations
+		
+		Key Architectural Mitigations
 	1. Zero-Copy Ingress & Presigned URLs (Prevents File Corruption)
 •	Mechanism: Clients bypass the application server entirely by requesting an S3/MinIO Presigned URL and uploading directly to cloud/object storage.
 
@@ -19,6 +21,7 @@ Fig 1: Synchronous Watchdog File-System Ingestion Architecture
 <img width="731" height="399" alt="image" src="https://github.com/user-attachments/assets/b577d8de-7522-467f-b9f4-d2a722d11f85" />
  
 Fig 2: Production Event-Driven Asynchronous Ingestion Pipeline
+
 	2. Asynchronous Job Delegation (Eliminates Thread Blocking)
 •	Mechanism: Upon receiving an upload request, the API Gateway immediately issues a 202 Accepted response with a unique JobID and pushes a lightweight JSON payload ({job_id, s3_key, user_id}) into the message queue.
 •	Mitigation: The client connection is closed in under 50ms. Clients track processing progress asynchronously via polling (GET /api/v1/jobs/{job_id}), WebSockets, or Server-Sent Events (SSE).
@@ -62,6 +65,8 @@ To optimize for a single-server deployment handling 10–20 concurrent requests,
 
 
 	
+
+
 
 
 Architecture AFTER Refactoring (Inline Async Model)
