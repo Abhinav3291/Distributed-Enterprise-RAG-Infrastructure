@@ -7,12 +7,9 @@ When accepting heavy PDF uploads from 100+ simultaneous users in a naive or sync
 
  <img width="843" height="460" alt="image" src="https://github.com/user-attachments/assets/e64451ae-d803-4e10-8f61-340e92ecea69" />
  
-							Fig 1: Synchronous Watchdog File-System Ingestion Architecture 
-
-
-
-		
-		Key Architectural Mitigations
+							  Fig 1: Synchronous Watchdog File-System Ingestion Architecture 
+							
+Key Architectural Mitigations
 	1. Zero-Copy Ingress & Presigned URLs (Prevents File Corruption)
 •	Mechanism: Clients bypass the application server entirely by requesting an S3/MinIO Presigned URL and uploading directly to cloud/object storage.
 
@@ -22,17 +19,15 @@ When accepting heavy PDF uploads from 100+ simultaneous users in a naive or sync
  
 Fig 2: Production Event-Driven Asynchronous Ingestion Pipeline
 
-	2. Asynchronous Job Delegation (Eliminates Thread Blocking)
+2. Asynchronous Job Delegation (Eliminates Thread Blocking)
 •	Mechanism: Upon receiving an upload request, the API Gateway immediately issues a 202 Accepted response with a unique JobID and pushes a lightweight JSON payload ({job_id, s3_key, user_id}) into the message queue.
 •	Mitigation: The client connection is closed in under 50ms. Clients track processing progress asynchronously via polling (GET /api/v1/jobs/{job_id}), WebSockets, or Server-Sent Events (SSE).
 
 
-	3. Queue-Driven Backpressure & Bounded Worker Pools (Prevents OOM Crashes)
+3. Queue-Driven Backpressure & Bounded Worker Pools (Prevents OOM Crashes)
 •	Mechanism: Ingestion workers consume jobs from a durable message broker (RabbitMQ / Redis Streams) configured with strict prefetch limits (basic_qos(prefetch_count=1)).
 
 •	Mitigation: If 100+ users upload PDFs at the exact same millisecond, the files buffer safely in the message queue. Worker nodes pull tasks at a fixed execution rate matching system hardware capacity, maintaining a flat memory footprint and preventing OOM crashes.
-
-
 				PDF Ingestion Request
 					│
 	 ┌─────────────────────    ┴─────────────────────┐
@@ -59,13 +54,9 @@ To optimize for a single-server deployment handling 10–20 concurrent requests,
 2.	Message Queue: Redis list/stream holding serialized JSON task payloads.
 3.	Worker Process (worker.py): A standalone background daemon continuously polling the queue via blocking read (BRPOP). Before performing vector searches or calling the LLM, the worker re-checks the Redis cache to prevent duplicate computation (Thundering Herd protection).
 
-					Systematic Diagram: BEFORE Refactoring
+											Systematic Diagram: BEFORE Refactoring
 
  <img width="788" height="430" alt="image" src="https://github.com/user-attachments/assets/8d7a1c62-78ab-4ac2-a369-88f7727f278c" />
-
-
-	
-
 
 
 
@@ -76,7 +67,7 @@ Architecture AFTER Refactoring (Inline Async Model)
 2.	Non-Blocking I/O: All network calls (Redis cache, Vector DB search, and LLM API inference) use non-blocking async/await calls (httpx or AsyncOpenAI).
 3.	In-Memory Concurrency Throttle (asyncio.Semaphore): Replaces the external message queue. A semaphore capped at 10 slots ensures that if 20 requests arrive simultaneously, 10 execute immediately while the remaining 10 pause cleanly in memory before processing.
 
-<img width="743" height="406" alt="image" src="https://github.com/user-attachments/assets/c3cca94d-6a12-416a-99a0-8b749450acb3" />
+      <img width="743" height="406" alt="image" src="https://github.com/user-attachments/assets/c3cca94d-6a12-416a-99a0-8b749450acb3" />
 
  
 
