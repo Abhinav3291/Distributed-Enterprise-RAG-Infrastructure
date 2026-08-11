@@ -2,8 +2,8 @@ RAG Engine
 An enterprise-grade, low-latency Retrieval-Augmented Generation backend engineered for deterministic precision, high-concurrency throughput, and zero-trust runtime safety.
 
 🏗️ System Architecture & Data Flow
-Plaintext
-[HTTP Request]    
+```text
+[HTTP Request] 
       │
       ▼
 [Redis Token Bucket (Lua Script)] ──(Exceeded)──► [HTTP 429 Too Many Requests]
