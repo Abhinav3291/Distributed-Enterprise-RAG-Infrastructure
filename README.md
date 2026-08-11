@@ -25,8 +25,9 @@ An enterprise-grade, low-latency Retrieval-Augmented Generation backend engineer
       │
       ▼
 [Cache Write & JSON Response]
+```
 📂 Project Directory Structure
-Plaintext
+```text
 Distributed Enterprise RAG Infrastructure/
 │
 ├── Rag_Ingiestion_pipeline.py/
