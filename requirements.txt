@@ -5,3 +5,11 @@ openai
 langchain-text-splitters
 python-dotenv
 fastapi
+uvicorn
+redis
+torch
+transformers
+presidio-analyzer
+presidio-anonymizer
+sentence-transformers
+python-multipart
